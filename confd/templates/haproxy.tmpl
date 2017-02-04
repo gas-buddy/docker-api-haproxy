@@ -1,12 +1,11 @@
 global
-    daemon
-    log /var/log   local0
-    log /var/log   local1 notice
+    log 127.0.0.1 local0
+    log 127.0.0.1 local1 notice
     pidfile /var/run/haproxy.pid
     nbproc  2 #no of processes
     maxconn 128000
-    user root
-    group root
+    user haproxy-app
+    group haproxy-app
 
 defaults
     log    global
@@ -30,34 +29,12 @@ defaults
     errorfile 503 /usr/local/etc/haproxy/errors/503.http
     errorfile 504 /usr/local/etc/haproxy/errors/504.http
 
-#{{range $service := ls "/proxy/front-ends"}}
-#frontend http-in
-#    bind *: getv $port
-#{{end}}
+{{range gets "/proxy/front-ends/*"}}
+frontend {{base .Key}}
+    {{replace .Value "\\n" "\n    " -1}}
+{{end}}
 
-frontend http-in
-    bind <%= bind_tcp('0.0.0.0', 8080) %>
-
-    {{range $service := ls "/services"}}
-
-    {{$key := printf "/services/%s/domain" $service}}  {{if exists $key}}
-    acl host_{{$service}} hdr(host) -i {{getv $key}}
-    {{end}}
-    {{$key := printf "/services/%s/url_reg" $service}}  {{if exists $key}}
-    acl host_{{$service}} url_reg -i {{getv $key}}
-    {{end}}
-    acl {{$service}}_health path_beg /ping
-    {{end}}
-
-    {{range $service := ls "/services"}}
-    use_backend {{$service}} if host_{{$service}}
-    use_backend {{$service}} if {{$service}}_health
-    {{end}}
-
-{{range $service := ls "/services"}}
-backend {{$service}}
-    balance leastconn
-    {{range $upstream := ls (printf "/services/%s/upstreams" $service)}}
-    server {{$upstream}} {{printf "/services/%s/upstreams/%s" $service $upstream | getv}} check
-    {{end}}
+{{range gets "/proxy/back-ends/*"}}
+backend {{base .Key}}
+    {{replace .Value "\\n" "\n    " -1}}
 {{end}}

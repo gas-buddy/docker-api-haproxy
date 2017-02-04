@@ -2,3 +2,4 @@ interval = 10
 debug = false
 verbose = false
 quiet = true
+prefix = "/"
