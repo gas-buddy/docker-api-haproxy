@@ -33,6 +33,9 @@ until confd -log-level=debug -onetime -node "$ETCD_NODE"; do
   sleep $n
 done
 
-echo "[haproxy-confd] Initial HAProxy config created. Starting confd"
+echo "[haproxy-confd] Initial HAProxy config created. Starting multibinder-haproxy and confd"
+
+/usr/bin/multibinder-haproxy-wrapper haproxy -Ds -f /usr/local/etc/haproxy/haproxy.cfg.erb -p /var/run/haproxy.pid &
+echo $! > /var/run/haproxy.pid
 
 exec confd -watch=true -log-level=debug -node "$ETCD_NODE"
