@@ -9,5 +9,5 @@ mode = "0644"
 src = "haproxy.tmpl"
 dest = "/usr/local/etc/haproxy/haproxy.cfg.erb"
 
-check_cmd = "cp {{ .src }} /tmp/check_config.erb && MULTIBINDER_SOCK= /usr/bin/multibinder-haproxy-erb haproxy -c -f /tmp/check_config.erb"
+check_cmd = "cp {{ .src }} /tmp/check_config.erb && /check_haproxy.sh"
 reload_cmd = "/run-or-reload.sh"

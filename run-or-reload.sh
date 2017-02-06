@@ -2,9 +2,13 @@
 
 PID=/var/run/multibinder.pid
 
-if [ -z "$PID" ]; then
-  kill -USR2 $PID
+echo "[haproxy-confd] run-or-reload called"
+
+if [ -f "$PID" ]; then
+  echo "[haproxy-confd] sending USR2 to multibinder"
+  kill -USR2 `cat $PID`
 else
-  /usr/bin/multibinder-haproxy-wrapper haproxy -f /usr/local/etc/haproxy/haproxy.cfg.erb -p /var/run/haproxy.pid -V &
-  cat $! > $PID
+  echo "[haproxy-confd] running haproxy wrapper"
+  nohup /usr/bin/multibinder-haproxy-wrapper haproxy -Ds -f /usr/local/etc/haproxy/haproxy.cfg.erb -p /var/run/haproxy.pid -V &
+  echo $! > $PID
 fi

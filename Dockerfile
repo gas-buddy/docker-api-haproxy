@@ -15,6 +15,7 @@ RUN chmod u+x /usr/local/bin/confd && \
 
 ADD entrypoint.sh /entrypoint.sh
 ADD run-or-reload.sh /run-or-reload.sh
+ADD check_haproxy.sh /check_haproxy.sh
 ADD confd /etc/confd
 
 ENTRYPOINT ["./entrypoint.sh"]
