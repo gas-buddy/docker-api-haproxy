@@ -10,9 +10,7 @@ fi
 
 set +eo pipefail
 
-#confd will start haproxy, since conf will be different than existing (which is null)
-
-echo "[haproxy-confd] booting container. ETCD: $ETCD_NODE"
+echo "[gasbuddy/haproxy] booting container. ETCD: $ETCD_NODE"
 
 function config_fail()
 {
@@ -20,22 +18,20 @@ function config_fail()
 	exit -1
 }
 
-echo "[haproxy-confd] Running multibinder deamon"
-
+echo "[gasbuddy/haproxy] Running multibinder deamon"
 /usr/bin/multibinder "$MULTIBINDER_SOCK" &
 
 # Loop until confd has updated the haproxy config
 n=0
-until confd -log-level=debug -onetime -node "$ETCD_NODE"; do
+until confd -onetime -node "$ETCD_NODE"; do
   if [ "$n" -eq "4" ];  then config_fail; fi
-  echo "[haproxy-confd] waiting for confd to refresh haproxy.cfg"
+  echo "[gasbuddy/haproxy] waiting for confd to refresh haproxy.cfg"
   n=$((n+1))
   sleep $n
 done
 
-echo "[haproxy-confd] Initial HAProxy config created. Starting multibinder-haproxy and confd"
+echo "[gasbuddy/haproxy] Initial HAProxy config created. Starting multibinder-haproxy and confd"
+/usr/bin/multibinder-haproxy-wrapper haproxy -Ds -f /usr/local/etc/haproxy/haproxy.cfg.erb -p $HAPROXY_PID &
+echo $! > $MULTIBINDER_PID
 
-/usr/bin/multibinder-haproxy-wrapper haproxy -Ds -f /usr/local/etc/haproxy/haproxy.cfg.erb -p /var/run/haproxy.pid &
-echo $! > /var/run/haproxy.pid
-
-exec confd -watch=true -log-level=debug -node "$ETCD_NODE"
+exec confd -watch=true -node "$ETCD_NODE"
