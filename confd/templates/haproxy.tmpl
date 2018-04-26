@@ -8,6 +8,11 @@ defaults
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
+{{range gets "/proxy/resolvers/*"}}
+resolvers {{base .Key}}
+    {{replace .Value "\\n" "\n    " -1}}
+{{end}}
+
 {{range gets "/proxy/front-ends/*"}}
 frontend {{base .Key}}
     {{replace .Value "\\n" "\n    " -1}}
