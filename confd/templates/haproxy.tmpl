@@ -3,13 +3,13 @@ global
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
-defaults
-{{range gets "/proxy/defaults"}}
+{{range gets "/proxy/resolvers/*"}}
+resolvers {{base .Key}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
-{{range gets "/proxy/resolvers/*"}}
-resolvers {{base .Key}}
+defaults
+{{range gets "/proxy/defaults"}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
