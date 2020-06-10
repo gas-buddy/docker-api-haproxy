@@ -11,6 +11,10 @@ front ends and back ends (and connections between them). Whenever them
 configuration is changed, the proxy will gracefully reload with
 no dropped connections.
 
+Paths
+=====
+`haproxy-multibinder-confd` expects the configuration to reside under the `/proxy` key.
+
 Setup
 =====
 
