@@ -1,4 +1,4 @@
-gasbuddy/haproxy-multibinder-confd
+gasbuddy/api-haproxy
 ==================================
 
 A containerized unit of [haproxy](http://www.haproxy.org/) +
@@ -12,7 +12,7 @@ This creates a docker container that bundles haproxy and confd. The entrypoint s
 
 Paths
 =====
-`haproxy-multibinder-confd` expects the configuration to reside under the `/proxy` key.
+`api-haproxy` expects the configuration to reside under the `/proxy` key.
 
 Setup
 =====
