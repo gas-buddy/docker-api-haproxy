@@ -6,7 +6,7 @@ ENV HAPROXY_PROCESSES 2
 ENV SYSLOG_SERVER localhost
 
 # Not usually something you set
-ENV CONFD_VERSION 0.11.0
+ENV CONFD_VERSION 0.16.0
 ENV MULTIBINDER_SOCK /var/run/multibinder.sock
 ENV MULTIBINDER_PID /var/run/multibinder.pid
 ENV HAPROXY_PID /var/run/haproxy.pid
