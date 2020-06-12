@@ -28,7 +28,7 @@ until confd -onetime -node "$ETCD_NODE"; do
   sleep $n
 done
 
-echo "[gasbuddy/haproxy-confd] Initial HAProxy config created. Starting haproxy and confd"
-/usr/local/sbin/haproxy -f /usr/local/etc/haproxy/haproxy.cfg -D -p /var/run/haproxy.pid 
+exec confd -watch=true -node "$ETCD_NODE" &
 
-exec confd -watch=true -node "$ETCD_NODE"
+echo "[gasbuddy/haproxy-confd] Initial HAProxy config created. Starting haproxy and confd"
+/usr/local/sbin/haproxy -f /usr/local/etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid
