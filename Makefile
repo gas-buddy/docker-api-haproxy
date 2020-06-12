@@ -1,7 +1,7 @@
 IMAGE = api-haproxy
 STAGE_PREFIX = "267230788984.dkr.ecr.us-east-1.amazonaws.com"
 PROD_PREFIX = "896521799855.dkr.ecr.us-east-1.amazonaws.com"
-TAG = "v1.0.2-rc1"
+TAG = "v2.0.0"
 
 STAGE_IMAGENAME = $(STAGE_PREFIX)/$(IMAGE):$(TAG)
 PROD_IMAGENAME = $(PROD_PREFIX)/$(IMAGE):$(TAG)
