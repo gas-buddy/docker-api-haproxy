@@ -1,19 +1,18 @@
-gasbuddy/haproxy-multibinder-confd
+gasbuddy/api-haproxy
 ==================================
 
 A containerized unit of [haproxy](http://www.haproxy.org/) +
-[confd](https://github.com/kelseyhightower/confd) +
-[multibinder](https://github.com/github/multibinder) to provide
-ultra high availability scalable proxy services.
+[confd](https://github.com/kelseyhightower/confd)
 
-The proxy uses an etcd cluster to build a dynamic set of
-front ends and back ends (and connections between them). Whenever them
-configuration is changed, the proxy will gracefully reload with
-no dropped connections.
+This creates a docker container that bundles haproxy and confd. The entrypoint script
+- sets an environment variable for a locally-running etcd instance (in our case an etcd node running proxy mode)
+- configures confd to check etcd address at first run and to use the keys defined in **confd.toml** to populate the haproxy config file
+- starts haproxy using that configured file
+- runs confd with the **-watch** flag so that it dynamically reloads haproxy every time a change in the specified etcd keys is detected
 
 Paths
 =====
-`haproxy-multibinder-confd` expects the configuration to reside under the `/proxy` key.
+`api-haproxy` expects the configuration to reside under the `/proxy` key.
 
 Setup
 =====
