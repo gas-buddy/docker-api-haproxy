@@ -1,6 +1,6 @@
 [template]
 keys = [
-  "/haproxy"
+  "/proxy"
 ]
 
 owner = "haproxy-app"

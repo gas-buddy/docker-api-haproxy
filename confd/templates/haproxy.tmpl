@@ -1,24 +1,24 @@
 global
-{{range gets "/haproxy/global"}}
+{{range gets "/proxy/global"}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
-{{range gets "/haproxy/resolvers/*"}}
+{{range gets "/proxy/resolvers/*"}}
 resolvers {{base .Key}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
 defaults
-{{range gets "/haproxy/defaults"}}
+{{range gets "/proxy/defaults"}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
-{{range gets "/haproxy/front-ends/*"}}
+{{range gets "/proxy/front-ends/*"}}
 frontend {{base .Key}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
 
-{{range gets "/haproxy/back-ends/*"}}
+{{range gets "/proxy/back-ends/*"}}
 backend {{base .Key}}
     {{replace .Value "\\n" "\n    " -1}}
 {{end}}
