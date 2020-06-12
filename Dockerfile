@@ -18,7 +18,7 @@ RUN addgroup haproxy-app && adduser -SDHG haproxy-app haproxy-app
 
 RUN chmod u+x /usr/local/bin/confd && \
     apk add --no-cache ruby ruby-bundler ruby-json && \
-    gem install multibinder --no-ri --no-rdoc
+    gem install multibinder -- --no-document ri,rdoc
 
 ADD entrypoint.sh /docker-entrypoint.sh
 ADD scripts /scripts/
