@@ -1,4 +1,4 @@
-FROM haproxy:1.7-alpine
+FROM haproxy:2.1.7-alpine
 
 # You almost certainly want to set these
 ENV ETCD_NODE http://etcd0:4001/
