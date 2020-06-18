@@ -1,7 +1,5 @@
 [template]
-keys = [
-  "/proxy"
-]
+keys = ["/"]
 
 owner = "haproxy-app"
 mode = "0644"
