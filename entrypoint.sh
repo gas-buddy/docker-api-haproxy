@@ -16,16 +16,7 @@ function config_fail()
 	exit -1
 }
 
-
-# Loop until confd has updated the haproxy config
-n=0
-until confd -onetime -node "$ETCD_NODE"; do
-  if [ "$n" -eq "10" ];  then config_fail; fi
-  echo "[gasbuddy/haproxy-confd] waiting for confd to refresh haproxy.cfg"
-  n=$((n+1))
-  sleep $n
-done
-
+confd -onetime -node "$ETCD_NODE"
 exec confd -watch=true -node "$ETCD_NODE" &
 
 echo "[gasbuddy/api-haproxy] Initial HAProxy config created. Starting haproxy and confd"
