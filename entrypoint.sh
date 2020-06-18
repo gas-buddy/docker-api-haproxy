@@ -8,7 +8,7 @@ fi
 
 set -eo pipefail
 
-echo "[gasbuddy/haproxy-confd] booting container. ETCD: $ETCD_NODE"
+echo "[gasbuddy/api-haproxy] booting container. ETCD: $ETCD_NODE"
 
 function config_fail()
 {
@@ -28,5 +28,5 @@ done
 
 exec confd -watch=true -node "$ETCD_NODE" &
 
-echo "[gasbuddy/haproxy-confd] Initial HAProxy config created. Starting haproxy and confd"
+echo "[gasbuddy/api-haproxy] Initial HAProxy config created. Starting haproxy and confd"
 /usr/local/sbin/haproxy -f /usr/local/etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid
