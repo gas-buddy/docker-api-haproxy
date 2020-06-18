@@ -3,6 +3,7 @@ FROM haproxy:2.1.7-alpine
 # You almost certainly want to set these
 ENV HAPROXY_PROCESSES 2
 ENV SYSLOG_SERVER localhost
+ENV ETCD_BASE_KEY /proxy
 
 # Not usually something you set
 ENV CONFD_VERSION 0.16.0
