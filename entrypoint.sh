@@ -6,8 +6,6 @@ then
   exit -1
 fi
 
-/sbin/syslogd -O /dev/stdout
-
 set -eo pipefail
 
 echo "[gasbuddy/haproxy-confd] booting container. ETCD: $ETCD_NODE"
