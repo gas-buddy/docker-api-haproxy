@@ -1,24 +1,24 @@
 global
-{{range gets (print (getenv "ETCD_BASE_KEY") "/global")}}
-    {{replace .Value "\\n" "\n    " -1}}
-{{end}}
+{{range gets (print (getenv "ETCD_BASE_KEY") "/global") -}}
+{{replace .Value "\\n" "\n    " -1}}
+{{end -}}
 
-{{range gets (print (getenv "ETCD_BASE_KEY") "/resolvers/*")}}
+{{range gets (print (getenv "ETCD_BASE_KEY") "/resolvers/*") -}}
 resolvers {{base .Key}}
-    {{replace .Value "\\n" "\n    " -1}}
-{{end}}
+{{replace .Value "\\n" "\n    " -1}}
+{{end -}}
 
 defaults
-{{range gets (print (getenv "ETCD_BASE_KEY") "/defaults")}}
-    {{replace .Value "\\n" "\n    " -1}}
-{{end}}
+{{range gets (print (getenv "ETCD_BASE_KEY") "/defaults") -}}
+{{replace .Value "\\n" "\n    " -1}}
+{{end -}}
 
-{{range gets (print (getenv "ETCD_BASE_KEY") "/front-ends/*")}}
+{{range gets (print (getenv "ETCD_BASE_KEY") "/front-ends/*") -}}
 frontend {{base .Key}}
-    {{replace .Value "\\n" "\n    " -1}}
-{{end}}
+{{replace .Value "\\n" "\n    " -1}}
+{{end -}}
 
-{{range gets (print (getenv "ETCD_BASE_KEY") "/back-ends/*")}}
+{{range gets (print (getenv "ETCD_BASE_KEY") "/back-ends/*") -}}
 backend {{base .Key}}
-    {{replace .Value "\\n" "\n    " -1}}
-{{end}}
+{{replace .Value "\\n" "\n    " -1}}
+{{end -}}
