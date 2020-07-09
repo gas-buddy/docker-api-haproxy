@@ -1,9 +1,9 @@
-FROM haproxy:1.8-alpine
+FROM haproxy:2.1.7-alpine
 
 # You almost certainly want to set these
-ENV ETCD_NODE http://127.0.0.1:2379
 ENV HAPROXY_PROCESSES 2
 ENV SYSLOG_SERVER localhost
+ENV ETCD_BASE_KEY /proxy
 
 # Not usually something you set
 ENV CONFD_VERSION 0.16.0
