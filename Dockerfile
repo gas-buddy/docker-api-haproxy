@@ -1,4 +1,4 @@
-FROM haproxy:2.1.7-alpine
+FROM haproxy:2.2.0-alpine
 
 # You almost certainly want to set these
 ENV HAPROXY_PROCESSES 2
