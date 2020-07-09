@@ -11,12 +11,6 @@ set -eo pipefail
 echo '[gasbuddy/api-haproxy] Booting container.'
 echo "[gasbuddy/api-haproxy] Fetching config from ETCD: $ETCD_NODE"
 
-function config_fail()
-{
-	echo "Failed to start due to config error"
-	exit -1
-}
-
 confd -onetime -node "$ETCD_NODE"
 exec confd -watch=true -node "$ETCD_NODE" &
 
