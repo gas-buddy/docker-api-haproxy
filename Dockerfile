@@ -12,8 +12,6 @@ ENV HAPROXY_PID /var/run/haproxy.pid
 ADD https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 \
     /usr/local/bin/confd
 
-RUN addgroup haproxy-app && adduser -SDHG haproxy-app haproxy-app
-
 RUN chmod u+x /usr/local/bin/confd
 
 ADD entrypoint.sh /docker-entrypoint.sh
