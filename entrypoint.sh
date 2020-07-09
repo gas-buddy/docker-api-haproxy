@@ -11,7 +11,7 @@ set -eo pipefail
 echo '[gasbuddy/api-haproxy] Booting container.'
 echo "[gasbuddy/api-haproxy] Fetching config from ETCD: $ETCD_NODE"
 
-confd -onetime -node "$ETCD_NODE"
+confd -onetime -sync-only -node "$ETCD_NODE"
 exec confd -watch=true -node "$ETCD_NODE" &
 
 echo '[gasbuddy/api-haproxy] Initial HAProxy config created. Starting haproxy...'
