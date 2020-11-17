@@ -23,4 +23,5 @@ publish:
 
 publish-prod:
 	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(PROD_PREFIX)
+	docker build -t $(PROD_IMAGENAME) .
 	docker push $(PROD_IMAGENAME)
