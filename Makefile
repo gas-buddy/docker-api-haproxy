@@ -15,7 +15,10 @@ clean:
 	docker images | awk -F' ' '{if ($$1=="$(STAGE_IMAGENAME)") print $$3}' | xargs -r docker rmi
 
 test:
-	docker run --rm --name haproxy-test -it $(STAGE_IMAGENAME)
+	docker build -t api-haproxy-temp .
+	docker build -t api-haproxy-configtest -f Dockerfile-configtest .
+	docker run --rm api-haproxy-configtest
+	docker rmi api-haproxy-temp api-haproxy-configtest
 
 publish:
 	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(STAGE_PREFIX)
