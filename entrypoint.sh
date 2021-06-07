@@ -11,7 +11,7 @@ set -eo pipefail
 echo '[gasbuddy/api-haproxy] Booting container.'
 echo "[gasbuddy/api-haproxy] Fetching config from ETCD: $ETCD_NODE"
 
-confd -onetime -sync-only -node "$ETCD_NODE"
+confd -onetime -sync-only -node "$ETCD_NODE" --backend etcdv3
 
 echo '[gasbuddy/api-haproxy] Initial HAProxy config created. Starting haproxy...'
 
@@ -28,4 +28,4 @@ while [[ ! -f $HAPROXY_PID ]]; do sleep 1; done
 echo "[gasbuddy/api-haproxy] Started haproxy (PID: $(cat $HAPROXY_PID))"
 echo '[gasbuddy/api-haproxy] Starting confd...'
 
-confd -watch=true -node "$ETCD_NODE"
+confd -watch=true -node "$ETCD_NODE" --backend etcdv3
