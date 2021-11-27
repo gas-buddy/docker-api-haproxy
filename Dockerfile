@@ -1,8 +1,5 @@
 FROM haproxy:2.2.0-alpine
 
-# You almost certainly want to set these
-ENV ETCD_BASE_KEY /proxy
-
 # Not usually something you set
 ENV CONFD_VERSION 0.16.0
 ENV HAPROXY_PID /var/run/haproxy.pid

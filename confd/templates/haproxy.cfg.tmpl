@@ -1,0 +1,24 @@
+global
+{{range gets "/global" -}}
+{{ .Value }}
+{{end -}}
+
+{{range gets "/resolvers/*" -}}
+resolvers {{base .Key}}
+{{ .Value }}
+{{end -}}
+
+defaults
+{{range gets "/defaults" -}}
+{{ .Value }}
+{{end -}}
+
+{{range gets "/front-ends/*" -}}
+frontend {{base .Key}}
+{{ .Value }}
+{{end -}}
+
+{{range gets "/back-ends/*" -}}
+backend {{base .Key}}
+{{ .Value }}
+{{end -}}

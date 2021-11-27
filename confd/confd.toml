@@ -1,4 +1,3 @@
 debug = false
 verbose = false
 quiet = true
-prefix = "/"

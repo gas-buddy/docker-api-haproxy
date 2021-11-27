@@ -10,6 +10,8 @@ confd \
     -log-level info \
     -node "${ETCD_ENDPOINT}"
 
+cat /etc/confd/confd.toml
+
 cat /usr/local/etc/haproxy/haproxy.cfg
 haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg
 

@@ -1,9 +1,15 @@
 [template]
-keys = ["/"]
+# This list is a filter to limit what gets fetched from etcd. Since each value in this
+# array automatically has "prefix" (below) appended to it, it needs to be both
+# a) present and b) empty.
+keys = [""]
+
+# String to prepend to `keys` above and also to every fetched key in the template
+prefix = "/proxy"
 
 owner = "haproxy-app"
 mode = "0644"
-src = "haproxy.tmpl"
+src = "haproxy.cfg.tmpl"
 dest = "/usr/local/etc/haproxy/haproxy.cfg"
 
 check_cmd = "/usr/local/sbin/haproxy -c -f {{ .src }}"
