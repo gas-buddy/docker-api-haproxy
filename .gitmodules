@@ -1,0 +1,3 @@
+[submodule "confd/src"]
+	path = confd/src
+	url = git@github.com:gas-buddy/confd.git
