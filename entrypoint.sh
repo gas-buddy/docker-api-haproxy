@@ -9,6 +9,8 @@ fi
 set -eo pipefail
 
 echo '[gasbuddy/api-haproxy] Booting container.'
+echo "[gasbuddy/api-haproxy] $(confd -version)"
+echo "[gasbuddy/api-haproxy] $(haproxy -v)"
 echo "[gasbuddy/api-haproxy] Fetching config from ETCD: $ETCD_NODE"
 
 confd -onetime -sync-only -node "$ETCD_NODE" --backend etcdv3
