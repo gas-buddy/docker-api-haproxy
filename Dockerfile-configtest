@@ -1,0 +1,5 @@
+FROM api-haproxy-temp
+
+ENV ETCD_ENDPOINT "http://host.docker.internal:2379"
+
+ADD config-test-entrypoint.sh /docker-entrypoint.sh
