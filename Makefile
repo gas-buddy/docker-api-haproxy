@@ -1,17 +1,21 @@
 IMAGE = api-haproxy
 STAGE_PREFIX = "267230788984.dkr.ecr.us-east-1.amazonaws.com"
 PROD_PREFIX = "896521799855.dkr.ecr.us-east-1.amazonaws.com"
+QA_PREFIX = "012928619343.dkr.ecr.us-east-1.amazonaws.com"
 TAG = "v4.0.1"
 CONFD_SRC = confd/src
 
 STAGE_IMAGENAME = $(STAGE_PREFIX)/$(IMAGE):$(TAG)
 PROD_IMAGENAME = $(PROD_PREFIX)/$(IMAGE):$(TAG)
+QA_IMAGENAME = $(QA_PREFIX)/$(IMAGE):$(TAG)
 
 all: build
 
 build:
 	$(MAKE) -C $(CONFD_SRC) build-linux
 	docker build -t $(STAGE_IMAGENAME) .
+	docker build -t $(PROD_IMAGENAME) .
+	docker build -t $(QA_IMAGENAME) .
 
 clean:
 	docker images | awk -F' ' '{if ($$1=="$(STAGE_IMAGENAME)") print $$3}' | xargs -r docker rmi
@@ -26,5 +30,13 @@ publish:
 
 publish-prod:
 	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(PROD_PREFIX)
-	docker build -t $(PROD_IMAGENAME) .
 	docker push $(PROD_IMAGENAME)
+
+publish-qa:
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(QA_PREFIX)
+	docker push $(QA_IMAGENAME)
+
+publish-all:
+	publish
+	publish-prod
+	publish-qa
